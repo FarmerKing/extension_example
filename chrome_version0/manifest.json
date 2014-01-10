@@ -1,0 +1,13 @@
+{
+    "manifest_version": 2,
+
+    "name": "extension example0",
+    "version": "0.1",
+    "description": "do nothing special, see the background page",
+
+    "permissions": [
+    ],
+
+    "background": {
+    }
+}
