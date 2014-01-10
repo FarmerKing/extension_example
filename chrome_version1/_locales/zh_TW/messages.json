@@ -1,0 +1,10 @@
+{
+    "like_button": {
+        "message": "朕知道了",
+        "description": "The replace message for the FB 'like'"
+    },
+    "already_like": {
+        "message": "朕已閱",
+        "description": "The replace message for the FB 'reverse like'"
+    }
+}
