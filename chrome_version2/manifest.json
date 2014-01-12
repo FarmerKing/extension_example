@@ -1,0 +1,32 @@
+{
+    "manifest_version": 2,
+
+    "name": "extension example2",
+    "version": "0.2",
+    "description": "Modify the \"Like\" Button at F. And show the count",
+
+    "permissions": [
+        "https://www.facebook.com/*"
+    ],
+
+    "browser_action": {
+        "default_icon": {
+            "19": "K-icon19.png",
+            "38": "K-icon38.png"
+        },
+        "default_title": "extension example 2"
+    },
+
+    "background": {
+	    "scripts": [ "background.js"],
+        "persistent": false
+    },
+
+    "content_scripts": [{
+        "matches": ["https://www.facebook.com/*"],
+        "run_at": "document_end",
+        "js": ["script.js"]
+    }],
+
+    "default_locale": "zh_TW"
+}
