@@ -1,0 +1,10 @@
+{
+    "like_button": {
+        "message": "I know.",
+        "description": "The replace message for the FB 'like'"
+    },
+    "already_like": {
+        "message": "I already viewed",
+        "description": "The replace message for the FB 'reverse like'"
+    }
+}
