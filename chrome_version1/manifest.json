@@ -1,20 +1,15 @@
 {
     "manifest_version": 2,
-    "content_security_policy": "script-src 'self'; object-src 'self'",
 
     "name": "extension example1",
     "version": "0.1",
     "description": "Modify the \"Like\" Button at F.",
 
     "permissions": [
-        "https://www.facebook.com/*"
     ],
 
-    "content_scripts": [{
-        "matches": ["https://www.facebook.com/*"],
-        "run_at": "document_end",
-        "js": ["script.js"]
-    }],
+    "content_scripts": [
+    ],
 
     "default_locale": "zh_TW"
 }
