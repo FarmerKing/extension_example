@@ -6,10 +6,14 @@
     "description": "Modify the \"Like\" Button at F.",
 
     "permissions": [
+        "https://www.facebook.com/*"
     ],
 
-    "content_scripts": [
-    ],
+    "content_scripts": [{
+        "matches": ["https://www.facebook.com/*"],
+        "run_at": "document_end",
+        "js": ["script.js"]
+    }],
 
     "default_locale": "zh_TW"
 }
