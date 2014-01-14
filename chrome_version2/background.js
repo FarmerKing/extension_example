@@ -1,19 +1,3 @@
-/*
-chrome.browserAction.onClicked.addListener(function(tab){
-    chrome.browserAction.getBadgeText({}, function(result) {
-        var prevCount = 0 ;
-        if( result.trim() !== "" ){
-            prevCount = parseInt(result,10);
-        }
-        prevCount++;
-
-        chrome.browserAction.setBadgeText({"text": prevCount.toString(10)});
-    });
-});
-*/
-
-
-
 chrome.runtime.onMessage.addListener(function(message) {
     if( typeof message.name === "undefined") return; 
     switch( message.name){
@@ -51,7 +35,6 @@ chrome.runtime.onInstalled.addListener(function(details){
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
     var current = new Date();
-    console.log("tabs.onUpdated(" + tab.url + ")(" + changeInfo.status + ")");
     var tabLocation = document.createElement('a');
     tabLocation.href= tab.url;
 
