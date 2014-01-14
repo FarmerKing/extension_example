@@ -1,55 +1,41 @@
-(function(){
-    Date.MutationObserver = window.WebKitMutationObserver || window.MutationObserver || window.MozMutationObserver || null; 
-
-    if( !Date.MutationObserver ) 
-        return ;
-
-    if( document.body.classList.contains("fbIndex") || 
-        document.body.classList.contains("UIPage_LoggedOut")) 
-        return;
-
-    var mutationObserver  = new Date.MutationObserver(function(mutations){
-        mutations.forEach(function(mutation) {
-            switch( mutation.type){
-                case "attributes": 
-                if( typeof mutation.target.className !== "undefined" && 
-                    mutation.target.className === "UFILikeLink" && 
-                    mutation.attributeName === "data-ft"){
-                    process(mutation.target.parentElement);
-                }
-                break; 
-                case "childList": 
-                process( mutation.target );
-                break;
+var mutationHandler = function(mutations){
+    var isSkipChildList = false;
+    mutations.forEach(function(mutation) {
+        if(mutation.type !== "childList"){
+            if( mutation.target.classList.contains("UFILikeLink") && 
+                mutation.attributeName === "data-ft"){
+                process(mutation.target.parentElement,true);
             }
-        });
+        }else if(isSkipChildList){
+        }else if( mutation.target.tagName.toLowerCase() === "div" && 
+                  (mutation.target.classList.contains("_5pcb") || 
+                   mutation.target.classList.contains("_4ikz")) ){
+            process();
+            isSkipChildList=true;
+        }
     });
+};
+var mutationObserver  = new MutationObserver(mutationHandler);
 
-    var process = function(element){
-        var nodeList = element.querySelectorAll("a.UFILikeLink");
-        for (var i = 0; i < nodeList.length; ++i) {
-            var node = nodeList[i]; 
-            if( node.getAttribute("data-ft") === '{"tn":">"}' ){
-                node.innerHTML = chrome.i18n.getMessage("like_button"); //"I know!"; 
-            }else{
-                node.innerHTML = chrome.i18n.getMessage("already_like"); //"aleady viewed!"; 
-            }
+var process = function(element,isForce){
+    element = typeof element !== 'undefined' ? element : document;
+    isForce = typeof isForce !== 'undefined' ? isForce : false;
+
+    var nodeList = element.querySelectorAll("a.UFILikeLink");
+    for (var i = 0; i < nodeList.length; ++i) {
+        var node = nodeList[i]; 
+
+        if( !isForce && node.classList.contains("replaced")) continue;
+        if( node.getAttribute("data-ft") === '{"tn":">"}' ){
+            node.innerHTML = chrome.i18n.getMessage("like_button"); //"I know!"; 
+        }else{
+            node.innerHTML = chrome.i18n.getMessage("already_like"); //"aleady viewed!"; 
         }
-    };
 
-    var init = function(){
-        if (document.readyState === "complete") {
-            //init 
-            process(document.body);
-            mutationObserver.observe(document.body, { attributeOldValue:true, childList: true, subtree: true, attributes:true });
-        }
-    };
-
-    //in case the onreadystatechange
-    init();
-
-    document.onreadystatechange = function () {
-        //in case the onreadystatechange
-        init();
+        node.classList.add("replaced");
     }
-})();
+};
+
+process();
+mutationObserver.observe(document.body, { childList: true, subtree: true, attributes:true });
+
