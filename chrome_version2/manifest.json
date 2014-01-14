@@ -6,7 +6,8 @@
     "description": "Modify the \"Like\" Button at F. And show the count",
 
     "permissions": [
-        "https://www.facebook.com/*"
+        "https://www.facebook.com/*",
+        "tabs"
     ],
 
     "browser_action": {
